@@ -1,3 +1,11 @@
+"""
+mypygame
+made using pycharm ide
+built on pygame
+Bill Erhard
+bill.erhard@gmail.com
+https://github.com/billerhard/mypygame/
+"""
 from PlayerProfile import PlayerProfile
 
 
@@ -12,7 +20,7 @@ def main():
     screen = pygame.display.set_mode(size)
     ball = pygame.image.load("intro_ball.gif")
     ballrect = ball.get_rect()
-    speed = [random.randint(1, 4), random.randint(1, 4)]
+    speed = [random.randint(1, 10), random.randint(1, 10)]
     pygame.font.init()
     bigsans = pygame.font.SysFont('Comic Sans MS', 30)
     clicku = False
@@ -20,7 +28,7 @@ def main():
     clickucolor = (255, 255, 255)
     player = PlayerProfile()
     scoresurface = bigsans.render('score = ' + str(player.score), False, (255, 255, 255))
-    smallsans = pygame.font.SysFont('Comic Sans MS', 30)
+    smallsans = pygame.font.SysFont('Comic Sans MS', 16)
 
     clicklocation = pygame.mouse.get_pos()
     did_crit = False
@@ -29,7 +37,7 @@ def main():
         if clicku and pygame.time.get_ticks() - clickutimer > 1000:
             clicku = False
             did_crit = False
-        pygame.time.delay(5)
+        pygame.time.delay(4)
         for event in pygame.event.get():
             if event.type == pygame.QUIT: sys.exit()
             if event.type == pygame.MOUSEBUTTONDOWN:
