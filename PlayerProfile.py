@@ -1,4 +1,6 @@
 class PlayerProfile:
     score = 0
-    crit_chance = 33
+    hits = 0
+    crits = 0
+    crit_chance = 10
     player_name = "Bouncer"

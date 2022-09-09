@@ -28,6 +28,7 @@ def main():
     clickucolor = (255, 255, 255)
     player = PlayerProfile()
     scoresurface = bigsans.render('score = ' + str(player.score), False, (255, 255, 255))
+    hitsurface = bigsans.render('hits = ' + str(player.hits) + ' crits = ' + str(player.crits), False, (255, 255, 255))
     smallsans = pygame.font.SysFont('Comic Sans MS', 16)
 
     clicklocation = pygame.mouse.get_pos()
@@ -46,14 +47,18 @@ def main():
                 if ballrect.top < clicktop < ballrect.bottom and ballrect.left < clickleft < ballrect.right:
                     if not clicku:
                         clicku = True
+                        player.hits += 1
+                        player.score += 1
                         clicklocation = pygame.mouse.get_pos()
                         clickutimer = pygame.time.get_ticks()
                         if random.randint(0, 100) < player.crit_chance:
-                            player.score += 2
-                            did_crit = True
-                        else:
                             player.score += 1
+                            player.crits += 1
+                            did_crit = True
+
                         scoresurface = bigsans.render('score = ' + str(player.score), False, (255, 255, 255))
+                        hitsurface = bigsans.render('hits = ' + str(player.hits) + ' crits = ' + str(player.crits),
+                                                    False, (255, 255, 255))
 
         ballrect = ballrect.move(speed)
         if ballrect.left < 0:
@@ -87,6 +92,7 @@ def main():
             tempbox = smallsans.render(tempscore, False, (255, 255, 255))
             screen.blit(tempbox, clicklocation)
         screen.blit(scoresurface, (700, 0))
+        screen.blit(hitsurface, (450, 0))
         pygame.display.flip()
 
 
