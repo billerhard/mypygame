@@ -4,11 +4,13 @@
 # https://aka.ms/yaml
 
 trigger:
-- master
+- main
 
 pool:
   vmImage: ubuntu-latest
 
-steps:
+jobs:
+- job: Checkout
 
-  checkout: self
+steps:
+- checkout: self
