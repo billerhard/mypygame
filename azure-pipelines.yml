@@ -11,6 +11,5 @@ pool:
 
 jobs:
 - job: Checkout
-
-steps:
-- checkout: self
+  steps:
+  - checkout: self
