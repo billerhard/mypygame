@@ -9,5 +9,8 @@ trigger:
 pool:
   vmImage: ubuntu-latest
 
+jobs:
+- job: Checkout
+
 steps:
-  checkout: self
+- checkout: self
