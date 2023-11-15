@@ -10,20 +10,15 @@ DATABASE_TABLENAME = "players"
 
 class PlayerProfile:
     """This is where player data goes..."""
-    player_id=0
-    score=0
-    hits=0
-    crits=0
-    crit_chance=0
-    name="Bouncer"
 
-    def __init__(self, player_id=0, score=0, hits=0, crits=0, crit_chance=10, name="Bouncer"):
+    def __init__(self, player_id=0, player_data=(0,0,0,10,"Bouncer")):
         self.player_id = player_id
-        self.score = score
-        self.hits = hits
-        self.crits = crits
-        self.crit_chance = crit_chance
-        self.name = name
+        self.player_data = player_data
+        # self.score = score
+        # self.hits = hits
+        # self.crits = crits
+        # self.crit_chance = crit_chance
+        # self.name = name
 
     def save(self):
         """save a player to database"""
@@ -31,14 +26,15 @@ class PlayerProfile:
         cursor = conn.cursor()
 
         query = "SELECT * FROM " + DATABASE_TABLENAME + " WHERE id=?;"
-        data = (self.player_id,)
-        cursor.execute(query, data)
+        datas = (self.player_id,)
+        cursor.execute(query, datas)
         results = cursor.fetchall()
 
         if not results:
             query = (
                 f"INSERT INTO {DATABASE_TABLENAME} VALUES ({"?, " * (FIELDS_COUNT - 1)}?);"
             )
+            datas = (self.player_id,)+self.player_data
         else:
             query = (
                 "UPDATE "
@@ -47,10 +43,10 @@ class PlayerProfile:
                 + ("%s=?, " * (FIELDS_COUNT - 1))
                 + "%s=? WHERE ID=?;"
             )
+            datas = (self.player_id,)+self.player_data
             query = query % FIELDS
-        data=encode(self)
 
-        cursor.execute(query, data)
+        cursor.execute(query, datas)
         conn.commit()
         conn.close()
 
@@ -76,24 +72,10 @@ class PlayerProfile:
         cursor.execute(query, (player_id,))
         conn.commit()
         results = cursor.fetchall()
-        if not results:
-            self = PlayerProfile()
-        else:
-            decode()
-
-        conn.close
-
-
-    def decode():
-        """turns database coded data into player data"""        
-
-    def encode(self):
-        """turns player data into database coded data"""
-        return {
-        "player_id": self.player_id,
-        "score": self.score,
-        "hits": self.hits,
-        "crits": self.crits,
-        "crit_chance": self.crit_chance,
-            "name": self.name,
-        }
+        profile = PlayerProfile(results.player_id,
+                                (results.score,
+                                 results.hits,
+                                 results.crits,
+                                 results.crit_chance,
+                                 results.name))
+        return profile
