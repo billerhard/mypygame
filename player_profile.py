@@ -27,6 +27,7 @@ class PlayerProfile:
 
         query = "SELECT * FROM " + DATABASE_TABLENAME + " WHERE id=?;"
         datas = (self.player_id,)
+        print(f"query: {query}")
         cursor.execute(query, datas)
         results = cursor.fetchall()
 
