@@ -25,9 +25,9 @@ class PlayerProfile:
         conn = connect("saves.db")
         cursor = conn.cursor()
 
-        query = "SELECT * FROM " + DATABASE_TABLENAME + " WHERE id=?;"
+        query = "SELECT * FROM " + DATABASE_TABLENAME + " WHERE player_id=?;"
         datas = (self.player_id,)
-        print(f"query: {query}")
+        print(f"query: {query} === data: {datas}")
         cursor.execute(query, datas)
         results = cursor.fetchall()
 
@@ -42,11 +42,11 @@ class PlayerProfile:
                 + DATABASE_TABLENAME
                 + " SET "
                 + ("%s=?, " * (FIELDS_COUNT - 1))
-                + "%s=? WHERE ID=?;"
+                + "%s=? WHERE player_id=?;"
             )
-            datas = (self.player_id,)+self.player_data
+            datas = (self.player_id,)+self.player_data+(self.player_id,)
             query = query % FIELDS
-
+        print(f"query: {query} === data: {datas}")
         cursor.execute(query, datas)
         conn.commit()
         conn.close()

@@ -43,9 +43,9 @@ def rainbowize_color(curtime):
 
 def check_crit(player):
     """given player, check crit, return true if crit"""
-    if randint(0, 100) < player.crit_chance:
-        player.score += 1
-        player.crits += 1
+    if randint(0, 100) < player.player_data[3]:
+        player.player_data[0] += 1
+        player.player_data[2] += 1
         return True
     return False
 
@@ -87,8 +87,8 @@ def handle_events(sd, so):
             sys.exit()
         if e.type == MOUSEBUTTONDOWN and not sd["clicku"] and check_hit(so["ballrect"]):
             sd["clicku"] = True
-            sd["player"].hits += 1
-            sd["player"].score += 1
+            sd["player"].player_data[1] += 1
+            sd["player"].player_data[0] += 1
             sd["clicklocation"] = mouse.get_pos()
             sd["clickutimer"] = time.get_ticks()
             sd["did_crit"] = check_crit(sd["player"])
