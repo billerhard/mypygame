@@ -11,7 +11,7 @@ DATABASE_TABLENAME = "players"
 class PlayerProfile:
     """This is where player data goes..."""
 
-    def __init__(self, player_id=0, player_data=(0,0,0,10,"Bouncer")):
+    def __init__(self, player_id=1, player_data=(0,0,0,10,"Bouncer")):
         self.player_id = player_id
         self.player_data = player_data
         # self.score = score

@@ -104,10 +104,14 @@ def main():
     colors = init_colors()
 
     speed = [randint(1, 10), randint(1, 10)]
+    try:
+        player = PlayerProfile.load(1)
+    finally:
+        player = PlayerProfile()
     sessiondata = {
         "clicku": False,
         "clickutimer": time.get_ticks(),
-        "player": PlayerProfile(),
+        "player": player,
         "clicklocation": mouse.get_pos(),
         "did_crit": False,
     }
@@ -162,6 +166,7 @@ def main():
         screen.blit(screenobjects["scoresurface"], (700, 0))
         screen.blit(screenobjects["hitsurface"], (450, 0))
         display.flip()
+        sessiondata["player"].save()
 
 
 if __name__ == "__main__":
