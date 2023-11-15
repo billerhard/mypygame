@@ -58,7 +58,7 @@ def update_score(f, player):
 def update_hits(f, player):
     """resets hit surface"""
     return f.render(
-        f"hits = {player.player_data(1)} crits = {player.player_data(2)}",
+        f"hits = {player.player_data[1]} crits = {player.player_data[2]}",
         False,
         (255, 255, 255),
     )
