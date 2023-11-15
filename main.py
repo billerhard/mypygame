@@ -43,7 +43,7 @@ def rainbowize_color(curtime):
 
 def check_crit(player):
     """given player, check crit, return true if crit"""
-    if randint(0, 100) < player.crit_chance:
+    if randint(0, 100) < player.player_data[3]:
         player.score += 1
         player.crits += 1
         return True
@@ -52,13 +52,13 @@ def check_crit(player):
 
 def update_score(f, player):
     """resets score surface"""
-    return f.render(f"score = {player.score}", False, (255, 255, 255))
+    return f.render(f"score = {player.player_data[0]}", False, (255, 255, 255))
 
 
 def update_hits(f, player):
     """resets hit surface"""
     return f.render(
-        f"hits = {player.hits} crits = {player.crits}",
+        f"hits = {player.player_data[1]} crits = {player.player_data[2]}",
         False,
         (255, 255, 255),
     )
@@ -104,10 +104,16 @@ def main():
     colors = init_colors()
 
     speed = [randint(1, 10), randint(1, 10)]
+    try:
+        player = PlayerProfile.load(1)
+    except AttributeError:
+        print("could not find player with id 1.")
+        print(f"player: {PlayerProfile.load(1)}")
+        player = PlayerProfile()
     sessiondata = {
         "clicku": False,
         "clickutimer": time.get_ticks(),
-        "player": PlayerProfile(),
+        "player": player,
         "clicklocation": mouse.get_pos(),
         "did_crit": False,
     }
@@ -162,6 +168,7 @@ def main():
         screen.blit(screenobjects["scoresurface"], (700, 0))
         screen.blit(screenobjects["hitsurface"], (450, 0))
         display.flip()
+        sessiondata["player"].save()
 
 
 if __name__ == "__main__":
