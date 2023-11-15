@@ -52,7 +52,7 @@ def check_crit(player):
 
 def update_score(f, player):
     """resets score surface"""
-    return f.render(f"score = {player.score}", False, (255, 255, 255))
+    return f.render(f"score = {player.player_data[0]}", False, (255, 255, 255))
 
 
 def update_hits(f, player):
