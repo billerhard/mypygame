@@ -72,6 +72,7 @@ class PlayerProfile:
         cursor.execute(query, (player_id,))
         conn.commit()
         results = cursor.fetchall()
+        print(f"results: {results}")
         profile = PlayerProfile(results.player_id,
                                 (results.score,
                                  results.hits,

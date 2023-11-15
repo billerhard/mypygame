@@ -106,7 +106,7 @@ def main():
     speed = [randint(1, 10), randint(1, 10)]
     try:
         player = PlayerProfile.load(1)
-    finally:
+    except AttributeError:
         player = PlayerProfile()
     sessiondata = {
         "clicku": False,
