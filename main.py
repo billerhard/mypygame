@@ -58,7 +58,7 @@ def update_score(f, player):
 def update_hits(f, player):
     """resets hit surface"""
     return f.render(
-        f"hits = {player.player_data[1]} crits = {player.player_data[2]}",
+        f"hits = {player.player_data[1]} crits = {player.player_data[2]} ",
         False,
         (255, 255, 255),
     )
@@ -72,12 +72,9 @@ def update_clicku(f, curtime):
 def check_hit(ballrect):
     """checks that mousepos is within ball bounds returns bool"""
     clickleft, clicktop = mouse.get_pos()
-    if (
-        ballrect.top < clicktop < ballrect.bottom
-        and ballrect.left < clickleft < ballrect.right
-    ):
-        return True
-    return False
+    return (ballrect.top < clicktop < ballrect.bottom
+        and ballrect.left < clickleft < ballrect.right)
+
 
 
 def handle_events(sd, so):
@@ -104,12 +101,7 @@ def main():
     colors = init_colors()
 
     speed = [randint(1, 10), randint(1, 10)]
-    try:
-        player = PlayerProfile.load(1)
-    except AttributeError:
-        print("could not find player with id 1.")
-        print(f"player: {PlayerProfile.load(1)}")
-        player = PlayerProfile()
+    player = PlayerProfile.load(1)
     sessiondata = {
         "clicku": False,
         "clickutimer": time.get_ticks(),
@@ -118,7 +110,7 @@ def main():
         "did_crit": False,
     }
     screenobjects = {
-        "ball": image.load("intro_ball.gif"),
+        "ball": image.load("./_internal/intro_ball.gif"),
         "bigsans": font.SysFont("Comic Sans MS", 30),
         "smallsans": font.SysFont("Comic Sans MS", 16),
     }
@@ -173,3 +165,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    input("press any key")
