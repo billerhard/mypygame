@@ -72,13 +72,15 @@ class PlayerProfile:
         cursor.execute(query, (player_id,))
         conn.commit()
         results = cursor.fetchall()
-        print(f"results: {results}")
-        profile = PlayerProfile(results[0][0],(
+        if not len(results)  == 0:
+            profile = PlayerProfile(results[0][0],(
                                 results[0][1],
                                  results[0][2],
                                  results[0][3],
                                  results[0][4],
                                  results[0][5]))
+        else:
+            profile = PlayerProfile()
         return profile
 
     def setscore(self,newscore):

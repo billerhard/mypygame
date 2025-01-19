@@ -1,0 +1,2 @@
+# Use this to create an exe using pyinstaller
+pyinstaller main.py --add-data=./intro_ball.gif:.
